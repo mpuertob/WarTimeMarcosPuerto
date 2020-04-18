@@ -1,26 +1,25 @@
 package vista.Conversores;
 
+import java.awt.event.FocusAdapter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import ensayos.EspecialidadSoldadosEnsayo;
 import modelo.Especialidad;
 import modelo.Tipo;
+import vista.EspecialidadSoldado;
+import vista.info.EspecialidadSoldadoInfo;
 
 public class Generador {
 
-	public static ArrayList<Especialidad> getEspecialidades(Tipo tipo) {
-		return null;
-	}
-
-	public static ArrayList<EspecialidadSoldadosEnsayo> getEspecialidadesEnsayo(Tipo tipo) {
-		ArrayList<EspecialidadSoldadosEnsayo> panelesEspecialidadSoldadosEnsayos=new ArrayList<EspecialidadSoldadosEnsayo>();
+	public static ArrayList<EspecialidadSoldado> getEspecialidades(Tipo tipo,FocusAdapter focusAdapter) {
+		ArrayList<EspecialidadSoldado> panelesEspecialidadSoldadosEnsayos=new ArrayList<EspecialidadSoldado>();
 		for (Especialidad especialidad : Arrays.asList(Especialidad.values())) {
 			if(especialidad.getTipo()==tipo) {
-				panelesEspecialidadSoldadosEnsayos.add(new EspecialidadSoldadosEnsayo(especialidad));
+				panelesEspecialidadSoldadosEnsayos.add(new EspecialidadSoldado(new EspecialidadSoldadoInfo(especialidad),focusAdapter));
 			}
 		}
 		return panelesEspecialidadSoldadosEnsayos;
 	}
+
 
 }
