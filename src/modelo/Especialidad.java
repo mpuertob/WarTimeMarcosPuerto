@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Arrays;
+
 public enum Especialidad {
 	
 	espada(Tipo.infanteria),lanza(Tipo.infanteria),arco(Tipo.arqueria),ballesta(Tipo.arqueria),
@@ -13,6 +15,19 @@ public enum Especialidad {
 	public Tipo getTipo() {
 		return tipo;
 	}
+
+	public static Especialidad getTipoPorNombre(String especialidad) {
+		
+		for (Especialidad especial : Arrays.asList(Especialidad.values())) {
+			if(especial.toString().equals(especialidad)) {
+				return especial;
+			}
+		}
+		return null;
+	}
 	
-	
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 }
