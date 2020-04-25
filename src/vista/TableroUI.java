@@ -33,6 +33,7 @@ public class TableroUI extends JPanel {
 			for (int j = 0; j < fichas[i].length; j++) {
 				JPanel casilla = fichas[i][j];
 				casilla.addMouseListener(mouseAdapter);
+				casilla.setName(String.valueOf(i)+"-"+String.valueOf(j));
 				add(casilla);
 			}
 		}
