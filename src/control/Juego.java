@@ -37,6 +37,7 @@ public class Juego {
 		int mitad = tamanoSoldados / 2;
 		Color color = Color.green;
 		int idBatallon = 0;
+		int numeroTiposBatallones=2;
 		// Batallon Infanteria
 		LinkedList<Soldado> soldadosBatallonInfanteria = new LinkedList<Soldado>();
 		for (int i = 0; i < tamanoSoldados; i++) {
@@ -46,8 +47,11 @@ public class Juego {
 				soldadosBatallonInfanteria.add(new Soldado(Especialidad.lanza));
 			}
 		}
-		Batallon batallonUno = new Batallon(idBatallon, Tipo.infanteria, soldadosBatallonInfanteria, color);
-		idBatallon += 1;
+		for (int i = 0; i < numeroTiposBatallones; i++) {
+			Batallon batallonUno = new Batallon(idBatallon, Tipo.infanteria, soldadosBatallonInfanteria, color);
+			this.batallonesJugadorUno.add(batallonUno);
+			idBatallon += 1;
+		}
 		// Batallon Arqueria
 		LinkedList<Soldado> soldadosBatallonArqueria = new LinkedList<Soldado>();
 		for (int i = 0; i < tamanoSoldados; i++) {
@@ -57,8 +61,11 @@ public class Juego {
 				soldadosBatallonArqueria.add(new Soldado(Especialidad.ballesta));
 			}
 		}
-		Batallon batallonDos = new Batallon(idBatallon, Tipo.arqueria, soldadosBatallonArqueria, color);
-		idBatallon += 1;
+		for (int i = 0; i < numeroTiposBatallones; i++) {
+			Batallon batallonDos = new Batallon(idBatallon, Tipo.arqueria, soldadosBatallonArqueria, color);
+			this.batallonesJugadorUno.add(batallonDos);
+			idBatallon += 1;
+		}
 		// Batallon Caballeria
 		LinkedList<Soldado> soldadosBatallonCaballeria = new LinkedList<Soldado>();
 		for (int i = 0; i < tamanoSoldados; i++) {
@@ -68,10 +75,11 @@ public class Juego {
 				soldadosBatallonCaballeria.add(new Soldado(Especialidad.pesada));
 			}
 		}
-		Batallon batallonTres = new Batallon(idBatallon, Tipo.caballeria, soldadosBatallonCaballeria, color);
-		this.batallonesJugadorUno.add(batallonUno);
-		this.batallonesJugadorUno.add(batallonDos);
-		this.batallonesJugadorUno.add(batallonTres);
+		for (int i = 0; i < numeroTiposBatallones; i++) {
+			Batallon batallonTres = new Batallon(idBatallon, Tipo.caballeria, soldadosBatallonCaballeria, color);
+			this.batallonesJugadorUno.add(batallonTres);
+			idBatallon += 1;
+		}
 	}
 
 	public void rellenarBatallonesJugadorDos() {
@@ -79,6 +87,7 @@ public class Juego {
 		int mitad = tamanoSoldados / 2;
 		Color color = Color.RED;
 		int idBatallon = 0;
+		int numeroTiposBatallones=2;
 		// Batallon Infanteria
 		LinkedList<Soldado> soldadosBatallonInfanteria = new LinkedList<Soldado>();
 		for (int i = 0; i < tamanoSoldados; i++) {
@@ -88,8 +97,11 @@ public class Juego {
 				soldadosBatallonInfanteria.add(new Soldado(Especialidad.lanza));
 			}
 		}
-		Batallon batallonUno = new Batallon(idBatallon, Tipo.infanteria, soldadosBatallonInfanteria, color);
-		idBatallon += 1;
+		for (int i = 0; i < numeroTiposBatallones; i++) {
+			Batallon batallonUno = new Batallon(idBatallon, Tipo.infanteria, soldadosBatallonInfanteria, color);
+			this.batallonesJugadorUno.add(batallonUno);
+			idBatallon += 1;
+		}
 		// Batallon Arqueria
 		LinkedList<Soldado> soldadosBatallonArqueria = new LinkedList<Soldado>();
 		for (int i = 0; i < tamanoSoldados; i++) {
@@ -99,8 +111,11 @@ public class Juego {
 				soldadosBatallonArqueria.add(new Soldado(Especialidad.ballesta));
 			}
 		}
-		Batallon batallonDos = new Batallon(idBatallon, Tipo.arqueria, soldadosBatallonArqueria, color);
-		idBatallon += 1;
+		for (int i = 0; i < numeroTiposBatallones; i++) {
+			Batallon batallonDos = new Batallon(idBatallon, Tipo.arqueria, soldadosBatallonArqueria, color);
+			this.batallonesJugadorUno.add(batallonDos);
+			idBatallon += 1;
+		}
 		// Batallon Caballeria
 		LinkedList<Soldado> soldadosBatallonCaballeria = new LinkedList<Soldado>();
 		for (int i = 0; i < tamanoSoldados; i++) {
@@ -110,10 +125,11 @@ public class Juego {
 				soldadosBatallonCaballeria.add(new Soldado(Especialidad.pesada));
 			}
 		}
-		Batallon batallonTres = new Batallon(idBatallon, Tipo.caballeria, soldadosBatallonCaballeria, color);
-		this.batallonesJugadorDos.add(batallonUno);
-		this.batallonesJugadorDos.add(batallonDos);
-		this.batallonesJugadorDos.add(batallonTres);
+		for (int i = 0; i < numeroTiposBatallones; i++) {
+			Batallon batallonTres = new Batallon(idBatallon, Tipo.caballeria, soldadosBatallonCaballeria, color);
+			this.batallonesJugadorUno.add(batallonTres);
+			idBatallon += 1;
+		}
 	}
 
 	public Ejercito getEjercitoUno() {
