@@ -9,6 +9,7 @@ public class Batallon implements Casilla {
 	private Tipo tipo;
 	private LinkedList<Soldado> soldados = new LinkedList<Soldado>();
 	private Color colorAtacante;
+	private Color colorArmy;
 
 	public Batallon(int id, Tipo tipo) {
 		super();
@@ -16,10 +17,11 @@ public class Batallon implements Casilla {
 		this.tipo = tipo;
 	}
 
-	public Batallon(int id, Tipo tipo, LinkedList<Soldado> soldados, Color colorEjercitoAtacante) {
+	public Batallon(int id, Tipo tipo, LinkedList<Soldado> soldados, Color colorEjercitoAtacante,Color colorArmy) {
 		this(id, tipo);
 		this.soldados = soldados;
 		this.colorAtacante = colorEjercitoAtacante;
+		this.colorArmy=colorArmy;
 	}
 
 	public int getId() {
@@ -85,4 +87,9 @@ public class Batallon implements Casilla {
 	public Color getColorAtacante() {
 		return colorAtacante;
 	}
+
+	public Color getColorArmy() {
+		return colorArmy;
+	}
+
 }

@@ -35,9 +35,10 @@ public class Juego {
 	public void rellenarBatallonesJugadorUno() {
 		int tamanoSoldados = 10;
 		int mitad = tamanoSoldados / 2;
-		Color color = Color.green;
+		Color colorArmy = Color.GREEN;
+		Color colorEnemigo = Color.RED;
 		int idBatallon = 0;
-		int numeroTiposBatallones=2;
+		int numeroTiposBatallones = 2;
 		// Batallon Infanteria
 		LinkedList<Soldado> soldadosBatallonInfanteria = new LinkedList<Soldado>();
 		for (int i = 0; i < tamanoSoldados; i++) {
@@ -48,7 +49,8 @@ public class Juego {
 			}
 		}
 		for (int i = 0; i < numeroTiposBatallones; i++) {
-			Batallon batallonUno = new Batallon(idBatallon, Tipo.infanteria, soldadosBatallonInfanteria, color);
+			Batallon batallonUno = new Batallon(idBatallon, Tipo.infanteria, soldadosBatallonInfanteria, colorEnemigo,
+					colorArmy);
 			this.batallonesJugadorUno.add(batallonUno);
 			idBatallon += 1;
 		}
@@ -62,7 +64,8 @@ public class Juego {
 			}
 		}
 		for (int i = 0; i < numeroTiposBatallones; i++) {
-			Batallon batallonDos = new Batallon(idBatallon, Tipo.arqueria, soldadosBatallonArqueria, color);
+			Batallon batallonDos = new Batallon(idBatallon, Tipo.arqueria, soldadosBatallonArqueria, colorEnemigo,
+					colorArmy);
 			this.batallonesJugadorUno.add(batallonDos);
 			idBatallon += 1;
 		}
@@ -76,7 +79,8 @@ public class Juego {
 			}
 		}
 		for (int i = 0; i < numeroTiposBatallones; i++) {
-			Batallon batallonTres = new Batallon(idBatallon, Tipo.caballeria, soldadosBatallonCaballeria, color);
+			Batallon batallonTres = new Batallon(idBatallon, Tipo.caballeria, soldadosBatallonCaballeria, colorEnemigo,
+					colorArmy);
 			this.batallonesJugadorUno.add(batallonTres);
 			idBatallon += 1;
 		}
@@ -85,9 +89,10 @@ public class Juego {
 	public void rellenarBatallonesJugadorDos() {
 		int tamanoSoldados = 10;
 		int mitad = tamanoSoldados / 2;
-		Color color = Color.RED;
+		Color colorArmy = Color.RED;
+		Color colorEnemigo = Color.GREEN;
 		int idBatallon = 0;
-		int numeroTiposBatallones=2;
+		int numeroTiposBatallones = 2;
 		// Batallon Infanteria
 		LinkedList<Soldado> soldadosBatallonInfanteria = new LinkedList<Soldado>();
 		for (int i = 0; i < tamanoSoldados; i++) {
@@ -98,7 +103,8 @@ public class Juego {
 			}
 		}
 		for (int i = 0; i < numeroTiposBatallones; i++) {
-			Batallon batallonUno = new Batallon(idBatallon, Tipo.infanteria, soldadosBatallonInfanteria, color);
+			Batallon batallonUno = new Batallon(idBatallon, Tipo.infanteria, soldadosBatallonInfanteria, colorEnemigo,
+					colorArmy);
 			this.batallonesJugadorUno.add(batallonUno);
 			idBatallon += 1;
 		}
@@ -112,7 +118,8 @@ public class Juego {
 			}
 		}
 		for (int i = 0; i < numeroTiposBatallones; i++) {
-			Batallon batallonDos = new Batallon(idBatallon, Tipo.arqueria, soldadosBatallonArqueria, color);
+			Batallon batallonDos = new Batallon(idBatallon, Tipo.arqueria, soldadosBatallonArqueria, colorEnemigo,
+					colorArmy);
 			this.batallonesJugadorUno.add(batallonDos);
 			idBatallon += 1;
 		}
@@ -126,7 +133,8 @@ public class Juego {
 			}
 		}
 		for (int i = 0; i < numeroTiposBatallones; i++) {
-			Batallon batallonTres = new Batallon(idBatallon, Tipo.caballeria, soldadosBatallonCaballeria, color);
+			Batallon batallonTres = new Batallon(idBatallon, Tipo.caballeria, soldadosBatallonCaballeria, colorEnemigo,
+					colorArmy);
 			this.batallonesJugadorUno.add(batallonTres);
 			idBatallon += 1;
 		}
@@ -139,5 +147,5 @@ public class Juego {
 	public Ejercito getEjercitoDos() {
 		return ejercitoDos;
 	}
-	
+
 }
