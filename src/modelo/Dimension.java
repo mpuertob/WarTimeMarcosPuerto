@@ -1,9 +1,9 @@
 package modelo;
 
-public class DimensionesTablero {
+public class Dimension {
 	private int ancho, alto;
 
-	public DimensionesTablero(int ancho, int alto) {
+	public Dimension(int ancho, int alto) {
 		super();
 		this.ancho = ancho;
 		this.alto = alto;

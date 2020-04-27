@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.LinkedList;
 
 import modelo.Batallon;
-import modelo.DimensionesTablero;
+import modelo.Dimension;
 import modelo.Ejercito;
 import modelo.Especialidad;
 import modelo.Soldado;
@@ -15,7 +15,7 @@ public class Juego {
 	private Tablero tablero;
 	private LinkedList<Batallon> batallonesJugadorUno = new LinkedList<Batallon>();
 	private LinkedList<Batallon> batallonesJugadorDos = new LinkedList<Batallon>();
-	private DimensionesTablero dimension = new DimensionesTablero(6, 12);
+	private Dimension dimension = new Dimension(6, 12);
 	private Ejercito ejercitoUno = new Ejercito(0);
 	private Ejercito ejercitoDos = new Ejercito(1);
 

@@ -4,11 +4,11 @@ import java.util.HashMap;
 
 public class Matriz<K, E> {
 	//vamos a hacer una matriz bidireccional
-	private DimensionesTablero dimension;
+	private Dimension dimension;
 	HashMap<K, E> elements = new HashMap<K, E>();
 	HashMap<E,K> reverse = new HashMap<E,K>();
 
-	public Matriz(DimensionesTablero dimension) {
+	public Matriz(Dimension dimension) {
 		super();
 		this.dimension=dimension;
 	}
