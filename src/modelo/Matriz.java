@@ -4,14 +4,13 @@ import java.util.HashMap;
 
 public class Matriz<K, E> {
 	//vamos a hacer una matriz bidireccional
-	private int ancho, alto;
+	private Dimension dimension;
 	HashMap<K, E> elements = new HashMap<K, E>();
 	HashMap<E,K> reverse = new HashMap<E,K>();
 
-	public Matriz(int ancho, int alto) {
+	public Matriz(Dimension dimension) {
 		super();
-		this.ancho = ancho;
-		this.alto = alto;
+		this.dimension = dimension;
 	}
 
 	public E insertElement(K coordinate, E element) {

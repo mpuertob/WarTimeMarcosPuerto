@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import control.Controller;
 import control.Juego;
 import modelo.Coordenada;
+import modelo.Dimension;
 import utiles.Utiles;
 import vista.Conversores.Generador;
 
@@ -33,7 +34,8 @@ public class ParaUIPruebaTablero extends TableroUIPrueba {
 	public ParaUIPruebaTablero() {
 		super();
 		getTableroUI().setMouseAdapter(mouseAdapter);
-		Juego juego=new Juego(6, 12);
+		Dimension dimension = new Dimension(6,12);
+		Juego juego=new Juego(dimension);
 		controller=new Controller(juego);
 		getTableroUI().actualizarTablero(Generador.getTableroUIInfo(juego));
 	}

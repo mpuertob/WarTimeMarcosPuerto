@@ -4,12 +4,13 @@ import java.util.LinkedList;
 
 import modelo.Batallon;
 import modelo.Coordenada;
+import modelo.Dimension;
 import modelo.Ejercito;
 import modelo.Tablero;
 
 public class Juego {
 	private Tablero tablero;
-	private int ancho, alto;
+	private Dimension dimension;
 	private LinkedList<Ejercito> ejercitos = new LinkedList<Ejercito>();
 	private int idEjercitoActual = 0;
 	private boolean localizarEstado = true;
@@ -18,11 +19,10 @@ public class Juego {
 		return localizarEstado;
 	}
 
-	public Juego(int ancho, int alto) {
+	public Juego(Dimension dimension) {
 		super();
-		this.ancho = ancho;
-		this.alto = alto;
-		tablero = new Tablero(ancho, alto);
+		this.dimension = dimension;
+		this.tablero = new Tablero(dimension);
 		ejercitos.add(new Ejercito(0));
 		ejercitos.add(new Ejercito(1));
 	}

@@ -8,16 +8,16 @@ import org.junit.jupiter.api.Test;
 
 import control.Controller;
 import control.Juego;
-import modelo.Batallon;
+import modelo.Dimension;
 import modelo.Especialidad;
-import modelo.Tipo;
 import vista.info.EspecificacionSoldadosInfo;
 
 class PobladorControllerTest {
 
 	@Test
 	void testPoblarBatallon() {
-		Juego juego = new Juego(6, 12);
+		Dimension dimension = new Dimension(6,12);
+		Juego juego = new Juego(dimension);
 		Controller controller = new Controller(juego);
 		Especialidad especialidades[] = { Especialidad.arco, Especialidad.ballesta };
 		int mitad = 5;
@@ -35,7 +35,8 @@ class PobladorControllerTest {
 
 	@Test
 	void testPoblarBatallonDos() {
-		Juego juego = new Juego(6, 12);
+		Dimension dimension = new Dimension(6,12);
+		Juego juego = new Juego(dimension);
 		Controller controller = new Controller(juego);
 		Especialidad especialidades[] = { Especialidad.arco, Especialidad.ballesta };
 		int fraccion = 4;

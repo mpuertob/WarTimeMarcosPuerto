@@ -3,23 +3,23 @@ package modelo;
 import vista.info.FichaInfo;
 
 public class Tablero {
-	private int ancho, alto;
+	private Dimension dimension;
 	// Como tambien puede ser un castillo, habrá que remodelar esto
 	private Matriz<Coordenada, Casilla> casillas;
 
-	public Tablero(int ancho, int alto) {
+	public Tablero(Dimension dimension) {
 		super();
-		this.ancho = ancho;
-		this.alto = alto;
-		casillas = new Matriz<Coordenada, Casilla>(ancho, alto);
+		this.dimension = new Dimension(getAncho(), getAlto());
+		
+		casillas = new Matriz<Coordenada, Casilla>(dimension);
 	}
 
 	public int getAncho() {
-		return ancho;
+		return dimension.getAncho();
 	}
 
 	public int getAlto() {
-		return alto;
+		return dimension.getAlto();
 	}
 
 	public Casilla getCasilla(Coordenada coordenada) {
@@ -34,4 +34,5 @@ public class Tablero {
 		}
 		return response;
 	}
+	
 }
