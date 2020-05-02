@@ -16,7 +16,7 @@ public class FichaInfo {
 	private Color colorEnemy;
 	
 	public FichaInfo(String icon, int army, int battalion, int experience, int attack, int defence, int stamina,
-			int units, boolean heroe,Color colorArmy) {
+			int units, boolean heroe,Color colorArmy,Color colorEnemy) {
 		super();
 		this.icon = icon;
 		this.army = army;
@@ -28,7 +28,7 @@ public class FichaInfo {
 		this.units = units;
 		this.heroe = heroe;
 		this.colorArmy = colorArmy;
-		this.colorEnemy=colorArmy;
+		this.colorEnemy=colorEnemy;
 	}
 
 	
