@@ -4,13 +4,14 @@ import java.util.HashMap;
 
 public class Matriz<K, E> {
 	//vamos a hacer una matriz bidireccional
-	private Dimension dimension;
+	private int ancho, alto;
 	HashMap<K, E> elements = new HashMap<K, E>();
 	HashMap<E,K> reverse = new HashMap<E,K>();
 
-	public Matriz(Dimension dimension) {
+	public Matriz(int ancho, int alto) {
 		super();
-		this.dimension=dimension;
+		this.ancho = ancho;
+		this.alto = alto;
 	}
 
 	public E insertElement(K coordinate, E element) {
@@ -26,5 +27,22 @@ public class Matriz<K, E> {
 	public K getClave(E element) {
 		return reverse.get(element);
 	}
+
+	//las clases parametrizadas no permiten la sobrecarga de tipos parametrizados 
+//	public boolean contiene(E e) {
+//		return getClave(e)!=null;
+//	}
+//
+//	public boolean contiene(K k) {
+//		return getElement(k)!=null;
+//	}
+	public boolean contieneElemento(E e) {
+		return getClave(e)!=null;
+	}
+	
+	public boolean contieneClave(K k) {
+		return getElement(k)!=null;
+	}
+	
 
 }

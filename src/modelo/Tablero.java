@@ -3,24 +3,35 @@ package modelo;
 import vista.info.FichaInfo;
 
 public class Tablero {
-	private Dimension dimension;
+	private int ancho, alto;
 	// Como tambien puede ser un castillo, habrá que remodelar esto
 	private Matriz<Coordenada, Casilla> casillas;
 
-	public Tablero(Dimension dimension) {
+	public Tablero(int ancho, int alto) {
 		super();
-		this.dimension = new Dimension(dimension.getAncho(),dimension.getAlto());
-		casillas = new Matriz<Coordenada, Casilla>(dimension);
+		this.ancho = ancho;
+		this.alto = alto;
+		casillas = new Matriz<Coordenada, Casilla>(ancho, alto);
+	}
+
+	public int getAncho() {
+		return ancho;
+	}
+
+	public int getAlto() {
+		return alto;
 	}
 
 	public Casilla getCasilla(Coordenada coordenada) {
 		return casillas.getElement(coordenada);
 	}
 
-	public void insertar(Batallon batallon,Coordenada coordenada) {
-		casillas.insertElement(coordenada, batallon);
-	}
-	public void insertar(Casilla casilla,Coordenada coordenada) {
-		casillas.insertElement(coordenada, casilla);
+	public boolean insertar(Casilla casilla, Coordenada coordenada) {
+		boolean response = false;
+		if (!casillas.contieneElemento(casilla) && !casillas.contieneClave(coordenada)) {
+			casillas.insertElement(coordenada, casilla);
+			response=true;
+		}
+		return response;
 	}
 }
