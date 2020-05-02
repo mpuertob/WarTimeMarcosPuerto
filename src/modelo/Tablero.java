@@ -9,7 +9,7 @@ public class Tablero {
 
 	public Tablero(Dimension dimension) {
 		super();
-		this.dimension = new Dimension(dimension.getAncho(), dimension.getAncho());
+		this.dimension = dimension;
 		casillas = new Matriz<Coordenada, Casilla>(dimension);
 	}
 
@@ -29,9 +29,13 @@ public class Tablero {
 		boolean response = false;
 		if (!casillas.contieneElemento(casilla) && !casillas.contieneClave(coordenada)) {
 			casillas.insertElement(coordenada, casilla);
-			response=true;
+			response = true;
 		}
 		return response;
 	}
-	
+
+	public Dimension getDimension() {
+		return dimension;
+	}
+
 }

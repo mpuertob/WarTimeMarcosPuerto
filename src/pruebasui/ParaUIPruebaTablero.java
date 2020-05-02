@@ -16,7 +16,7 @@ import vista.Conversores.Generador;
 
 public class ParaUIPruebaTablero extends TableroUIPrueba {
 
-	private Controller controller;
+	private Controller localizadorController;
 	MouseAdapter mouseAdapter = new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -24,19 +24,18 @@ public class ParaUIPruebaTablero extends TableroUIPrueba {
 			JPanel panel = (JPanel) e.getSource();
 			panel.setBackground(Color.YELLOW);
 			Coordenada coordenada = Utiles.getCoordenada(panel.getName());
-			if(!controller.localizar(coordenada)) {
+			if (!localizadorController.localizar(coordenada)) {
 				System.out.println("algo va mal");
 			}
-			getTableroUI().actualizarTablero(Generador.getTableroUIInfo(controller.getJuego()));
+			getTableroUI().actualizarTablero(Generador.getTableroUIInfo(localizadorController.getJuego()));
 		}
 	};
 
 	public ParaUIPruebaTablero() {
 		super();
+		Juego juego = new Juego(new Dimension(6, 12));
 		getTableroUI().setMouseAdapter(mouseAdapter);
-		Dimension dimension = new Dimension(6,12);
-		Juego juego=new Juego(dimension);
-		controller=new Controller(juego);
+		localizadorController = new Controller(juego);
 		getTableroUI().actualizarTablero(Generador.getTableroUIInfo(juego));
 	}
 
