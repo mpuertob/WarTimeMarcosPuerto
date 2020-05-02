@@ -9,8 +9,7 @@ public class Tablero {
 
 	public Tablero(Dimension dimension) {
 		super();
-		this.dimension = new Dimension(getAncho(), getAlto());
-		
+		this.dimension = new Dimension(dimension.getAncho(), dimension.getAncho());
 		casillas = new Matriz<Coordenada, Casilla>(dimension);
 	}
 
