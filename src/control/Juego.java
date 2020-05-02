@@ -54,4 +54,12 @@ public class Juego {
 		;
 	}
 
+	public LinkedList<Ejercito> getEjercitos() {
+		return ejercitos;
+	}
+
+	public int getIdEjercitoActual() {
+		return idEjercitoActual;
+	}
+
 }

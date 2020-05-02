@@ -7,15 +7,15 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
+import control.Controller;
 import control.Juego;
-import control.LocalizadorController;
 import modelo.Coordenada;
 import utiles.Utiles;
 import vista.Conversores.Generador;
 
 public class ParaUIPruebaTablero extends TableroUIPrueba {
 
-	private LocalizadorController localizadorController;
+	private Controller controller;
 	MouseAdapter mouseAdapter = new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -23,10 +23,10 @@ public class ParaUIPruebaTablero extends TableroUIPrueba {
 			JPanel panel = (JPanel) e.getSource();
 			panel.setBackground(Color.YELLOW);
 			Coordenada coordenada = Utiles.getCoordenada(panel.getName());
-			if(!localizadorController.localizar(coordenada)) {
+			if(!controller.localizar(coordenada)) {
 				System.out.println("algo va mal");
 			}
-			getTableroUI().actualizarTablero(Generador.getTableroUIInfo(localizadorController.getJuego()));
+			getTableroUI().actualizarTablero(Generador.getTableroUIInfo(controller.getJuego()));
 		}
 	};
 
@@ -34,7 +34,7 @@ public class ParaUIPruebaTablero extends TableroUIPrueba {
 		super();
 		getTableroUI().setMouseAdapter(mouseAdapter);
 		Juego juego=new Juego(6, 12);
-		localizadorController=new LocalizadorController(juego);
+		controller=new Controller(juego);
 		getTableroUI().actualizarTablero(Generador.getTableroUIInfo(juego));
 	}
 

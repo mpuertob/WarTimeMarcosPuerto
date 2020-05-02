@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import control.PobladorController;
+import control.Controller;
 import modelo.Ejercito;
 import vista.BordeArmada;
 import vista.MercadoSoldadoDialog;
@@ -22,7 +22,7 @@ public class BodeArmadaPrueba extends JFrame {
 	private JPanel contentPane;
 	private Ejercito ejercito;
 	private MercadoSoldadoDialog mercadoSoldado;
-	PobladorController pobladorController;
+	private Controller controller;
 
 	/**
 	 * Launch the application.
@@ -54,7 +54,7 @@ public class BodeArmadaPrueba extends JFrame {
 		contentPane.add(comp, BorderLayout.WEST);
 		ejercito = new Ejercito(0);
 		comp.cargarEjercito(Generador.getEjercitoInfo(ejercito));
-		//De aqui hay cosas que tendran que cambiar en la version definitiva
+		// De aqui hay cosas que tendran que cambiar en la version definitiva
 		getBtnPoblar(comp).addActionListener(new ActionListener() {
 
 			@Override
@@ -62,7 +62,6 @@ public class BodeArmadaPrueba extends JFrame {
 				mercadoSoldado = new MercadoSoldadoDialog(
 						Generador.getMercadoSoldadoInfo(ejercito.getBatallonActual()));
 				mercadoSoldado.setVisible(true);
-				pobladorController=new PobladorController(ejercito.getBatallonActual());
 				mercadoSoldado.getBtnOk().addActionListener(new ActionListener() {
 
 					@Override
@@ -70,14 +69,14 @@ public class BodeArmadaPrueba extends JFrame {
 //						MercadoSoldadoDialog dialogo=(MercadoSoldadoDialog)e.getSource();
 						if (mercadoSoldado.compruebaMax()) {
 							// aqui es donde hay que conectar con el modelo de datos
-							pobladorController.poblarBatallon(mercadoSoldado.getListaEjercito());
+							controller.poblarBatallon(mercadoSoldado.getListaEjercito());
 						}
 						dispose();
 					}
 				});
 			}
 		});
-		
+
 	}
 
 	private JButton getBtnPoblar(BordeArmada comp) {
