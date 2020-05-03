@@ -8,7 +8,8 @@ public class Batallon implements Casilla {
 	private final int maximoSoldados = 10;
 	private Tipo tipo;
 	private LinkedList<Soldado> soldados = new LinkedList<Soldado>();
-	private Color colorAtacante;
+	private Color colorAtacante = Color.RED;
+	private Color colorArmy = Color.GREEN;
 
 	public Batallon(int id, Tipo tipo) {
 		super();
@@ -16,9 +17,8 @@ public class Batallon implements Casilla {
 		this.tipo = tipo;
 	}
 
-	public Batallon(int id, Tipo tipo, LinkedList<Soldado> soldados, Color colorEjercitoAtacante) {
+	public Batallon(int id, Tipo tipo, LinkedList<Soldado> soldados) {
 		this(id, tipo);
-		this.colorAtacante = colorEjercitoAtacante;
 		this.soldados = soldados;
 	}
 
@@ -39,10 +39,9 @@ public class Batallon implements Casilla {
 	}
 
 	public boolean alistarSoldado(Soldado soldado) {
-		Especialidad especialidad = soldado.getEspecialidad();
-		Tipo tipoSoldado = especialidad.getTipo();
-		assert tipoSoldado.equals(especialidad.getTipo()) : "epecialidad no compatible";
+		assert soldado.getEspecialidad().getTipo().equals(tipo) : "epecialidad no compatible";
 		return soldados.add(soldado);
+
 	}
 
 	public LinkedList<Soldado> getSoldados() {
@@ -51,6 +50,10 @@ public class Batallon implements Casilla {
 
 	public Color getColorAtacante() {
 		return colorAtacante;
+	}
+
+	public Color getColorArmy() {
+		return colorArmy;
 	}
 
 	public void setColorAtacante(Color colorAtacante) {

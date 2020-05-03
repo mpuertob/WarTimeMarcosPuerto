@@ -52,8 +52,7 @@ public class Generador {
 		if (casilla != null) {
 			Batallon batallon = (Batallon) casilla;
 			// datos necesarios para crear el fichaInfo
-			//String rutaImagen = batallon.getSoldados().get(0).getEspecialidad().getRutaImagen();
-			String rutaImagen = "/Imagenes/arco.png";
+			String rutaImagen = batallon.getSoldados().get(0).getEspecialidad().getRutaImagen();
 			int army = -1;
 			int idBatallon = batallon.getAtaqueTotal();
 			int experiencia = batallon.getExperienciaTotal();
@@ -63,9 +62,10 @@ public class Generador {
 			int unidades = batallon.getMaximoSoldados();
 			boolean heroe = false;
 			Color colorEnemigo = batallon.getColorAtacante();
+			Color colorArmy = batallon.getColorArmy();
 
 			fichaInfo = new FichaInfo(rutaImagen, army, idBatallon, experiencia, ataque, defensa, stamina, unidades,
-					heroe, colorEnemigo);
+					heroe, colorEnemigo,colorArmy);
 		}
 		return fichaInfo;
 	}
