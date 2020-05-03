@@ -1,7 +1,5 @@
 package modelo;
 
-import vista.info.FichaInfo;
-
 public class Tablero {
 	private Dimension dimension;
 	// Como tambien puede ser un castillo, habrá que remodelar esto

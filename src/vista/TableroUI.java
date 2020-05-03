@@ -17,11 +17,10 @@ public class TableroUI extends JPanel {
 	// Cada una de las casillas representadas en el tablero
 	private JPanel[][] fichas;
 	private MouseAdapter mouseAdapter;
-
 	/**
 	 * Create the panel.
 	 */
-	public TableroUI(int ancho, int alto) {
+	public TableroUI(int ancho,int alto) {
 		super();
 		fichas = new JPanel[ancho][alto];
 		setBorder(new EmptyBorder(5, 5, 5, 5));

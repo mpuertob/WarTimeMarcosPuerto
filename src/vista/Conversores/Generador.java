@@ -26,11 +26,12 @@ import vista.info.TableroUIInfo;
 
 public class Generador {
 
-	public static ArrayList<EspecialidadSoldado> getEspecialidades(Tipo tipo,FocusAdapter focusAdapter) {
-		ArrayList<EspecialidadSoldado> panelesEspecialidadSoldadosEnsayos=new ArrayList<EspecialidadSoldado>();
+	public static ArrayList<EspecialidadSoldado> getEspecialidades(Tipo tipo, FocusAdapter focusAdapter) {
+		ArrayList<EspecialidadSoldado> panelesEspecialidadSoldadosEnsayos = new ArrayList<EspecialidadSoldado>();
 		for (Especialidad especialidad : Arrays.asList(Especialidad.values())) {
-			if(especialidad.getTipo()==tipo) {
-				panelesEspecialidadSoldadosEnsayos.add(new EspecialidadSoldado(new EspecialidadSoldadoInfo(especialidad),focusAdapter));
+			if (especialidad.getTipo() == tipo) {
+				panelesEspecialidadSoldadosEnsayos
+						.add(new EspecialidadSoldado(new EspecialidadSoldadoInfo(especialidad), focusAdapter));
 			}
 		}
 		return panelesEspecialidadSoldadosEnsayos;
@@ -38,7 +39,7 @@ public class Generador {
 
 	public static MercadoSoldadoInfo getMercadoSoldadoInfo(Batallon batallon) {
 		return new MercadoSoldadoInfo(batallon);
-	}
+		}
 
 	public static EjercitoInfo getEjercitoInfo(Ejercito ejercito) {
 		return new EjercitoInfo(ejercito.getId(), ejercito.getIdBatallonActual(), ejercito.getTipoBatallon(),
@@ -47,17 +48,29 @@ public class Generador {
 
 	public static FichaInfo getFichaInfo(Tablero tablero, Coordenada coordenada) {
 		Casilla casilla = tablero.getCasilla(coordenada);
-		FichaInfo fichaInfo=null;
-		if(casilla!=null) {
-			Batallon batallon=(Batallon)casilla;
-			//TODO cambiar cuando el batallon tenga todos los valores para la ficha
-			fichaInfo=new FichaInfo("/Imagenes/ligera.png", -1, batallon.getId(), -1,
-					-1, -1, -1, batallon.getMaximoSoldados(), false, Color.BLACK);
+		FichaInfo fichaInfo = null;
+		if (casilla != null) {
+			Batallon batallon = (Batallon) casilla;
+			// datos necesarios para crear el fichaInfo
+			//String rutaImagen = batallon.getSoldados().get(0).getEspecialidad().getRutaImagen();
+			String rutaImagen = "/Imagenes/arco.png";
+			int army = -1;
+			int idBatallon = batallon.getAtaqueTotal();
+			int experiencia = batallon.getExperienciaTotal();
+			int ataque = batallon.getAtaqueTotal();
+			int defensa = batallon.getDefensaTotal();
+			int stamina = batallon.getStaminaTotal();
+			int unidades = batallon.getMaximoSoldados();
+			boolean heroe = false;
+			Color colorEnemigo = batallon.getColorAtacante();
+
+			fichaInfo = new FichaInfo(rutaImagen, army, idBatallon, experiencia, ataque, defensa, stamina, unidades,
+					heroe, colorEnemigo);
 		}
 		return fichaInfo;
 	}
-	
+
 	public static TableroUIInfo getTableroUIInfo(Juego juego) {
 		return new TableroUIInfo(juego.getTablero());
-	}
+		}
 }
