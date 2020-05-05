@@ -100,8 +100,9 @@ public class MercadoSoldados extends JPanel {
 	public LinkedList<EspecificacionSoldadosInfo> getListaEjercito() {
 		LinkedList<EspecificacionSoldadosInfo> response=new LinkedList<EspecificacionSoldadosInfo>();
 		for (EspecialidadSoldado especialidad : especialidades) {
-			response.add(new EspecificacionSoldadosInfo(especialidad.getLblEspecialidad().toString(),
-			Integer.valueOf(especialidad.getTxtCantidad().getText().toString())));
+			EspecificacionSoldadosInfo especial = new EspecificacionSoldadosInfo(especialidad.getLblEspecialidad().getText(),
+			Integer.valueOf(especialidad.getTxtCantidad().getText()));
+			response.add(especial);
 		}
 		return response;
 	}
