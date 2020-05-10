@@ -109,12 +109,12 @@ public class MercadoSoldados extends JPanel {
 	public LinkedList<EspecificacionSoldadosInfo> getEspecificaciones() {
 		LinkedList<EspecificacionSoldadosInfo> response=new LinkedList<EspecificacionSoldadosInfo>();
 		for (EspecialidadSoldado especialidad : especialidades) {
-			response.add(new EspecificacionSoldadosInfo(especialidad.getLblEspecialidad().toString(),
-			Integer.valueOf(especialidad.getTxtCantidad().getText().toString())));
+			EspecificacionSoldadosInfo especificacionSoldadosInfo = new EspecificacionSoldadosInfo(especialidad.getLblEspecialidad().getText(), Integer.valueOf(especialidad.getTxtCantidad().getText()));
+			Integer.valueOf(especialidad.getTxtCantidad().getText());
+			response.add(especificacionSoldadosInfo);
 		}
 		return response;
 	}
-
 	public boolean compruebaMax() {
 		return sumaSoldados()==Integer.valueOf(lblMaxSoldados.getText());
 	}
