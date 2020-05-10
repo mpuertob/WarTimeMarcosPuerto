@@ -17,18 +17,19 @@ public class TableroUI extends JPanel {
 	// Cada una de las casillas representadas en el tablero
 	private JPanel[][] fichas;
 	private MouseAdapter mouseAdapter;
+
 	/**
 	 * Create the panel.
 	 */
-	public TableroUI(int ancho,int alto) {
+	public TableroUI(int ancho, int alto) {
 		super();
-		fichas = new JPanel[ancho][alto];
+		fichas = new JPanel[alto][ancho];
 		setBorder(new EmptyBorder(5, 5, 5, 5));
-		setLayout(new GridLayout(ancho, alto, 0, 0));
+		setLayout(new GridLayout(alto, ancho, 0, 0));
 	}
 
 	public void setMouseAdapter(MouseAdapter mouseAdapter) {
-		this.mouseAdapter = mouseAdapter;	
+		this.mouseAdapter = mouseAdapter;
 	}
 
 	public void actualizarTablero(TableroUIInfo tableroUIInfo) {
@@ -44,11 +45,8 @@ public class TableroUI extends JPanel {
 		}
 		revalidate();
 	}
-	
-	public  JPanel getFicha(FichaInfo fichaInfo) {
-		if(fichaInfo==null) {
-			return new FichaBlanca();
-		}
-		return new Ficha(fichaInfo);
+
+	public JPanel getFicha(FichaInfo fichaInfo) {
+		return fichaInfo.getPanel();
 	}
 }

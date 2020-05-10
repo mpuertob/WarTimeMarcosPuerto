@@ -1,19 +1,26 @@
 package control;
 
+import java.util.ArrayDeque;
 import java.util.LinkedList;
 
 import modelo.Batallon;
+import modelo.Blanca;
+import modelo.Casilla;
+import modelo.Castillo;
 import modelo.Coordenada;
 import modelo.Dimension;
 import modelo.Ejercito;
+import modelo.Error;
+import modelo.Soldado;
 import modelo.Tablero;
 
 public class Juego {
 	private Tablero tablero;
 	private Dimension dimension;
-	private LinkedList<Ejercito> ejercitos = new LinkedList<Ejercito>();
-	private int idEjercitoActual = 0;
+	private ArrayDeque<Ejercito> ejercitos = new ArrayDeque<Ejercito>();
 	private boolean localizarEstado = true;
+	private Ejercito primerEjercito;
+	private Error errorActualError = null;
 
 	public boolean isLocalizarEstado() {
 		return localizarEstado;
@@ -23,8 +30,15 @@ public class Juego {
 		super();
 		this.dimension = dimension;
 		this.tablero = new Tablero(dimension);
-		ejercitos.add(new Ejercito(0));
-		ejercitos.add(new Ejercito(1));
+		this.ejercitos.add(new Ejercito(0));
+		this.ejercitos.add(new Ejercito(1));
+		Ejercito ejercitoCero = new Ejercito(0);
+		this.tablero.insertar(new Castillo(ejercitoCero), new Coordenada(3, 1));
+		this.ejercitos.offer(ejercitoCero);
+		Ejercito ejercitoUno = new Ejercito(1);
+		this.tablero.insertar(new Castillo(ejercitoUno), new Coordenada(3, getAncho()-2));
+		this.ejercitos.offer(ejercitoUno);
+		this.primerEjercito = ejercitos.peek();
 	}
 
 	public Tablero getTablero() {
@@ -32,34 +46,67 @@ public class Juego {
 	}
 
 	public boolean localizarBatallon(Coordenada coordenada) {
-		boolean insertar = localizarEstado;
-		if (insertar) {
-			Ejercito ejercito = ejercitos.get(idEjercitoActual);
+		boolean insertar = comprobarLocalizacion(coordenada);
+		if (!insertar) {
+			errorActualError = Error.posicion;
+		} else if (localizarEstado) {
+			Ejercito ejercito = ejercitos.peek();
 			Batallon batallonActual = ejercito.getBatallonActual();
 			insertar = tablero.insertar(batallonActual, coordenada);
 			if (insertar) {
 				if (!ejercito.setSiguienteBatallon()) {
 					setSiguienteEjercito();
 				}
+			} else {
+				errorActualError = Error.ocupada;
 			}
 		}
-		return insertar;
+		return insertar && localizarEstado;
+	}
+
+	public Error getErrorActual() {
+		Error response = errorActualError;
+		errorActualError = Error.noerror;
+		return response;
+	}
+
+	private boolean comprobarLocalizacion(Coordenada coordenada) {
+		return getTablero().isEnSuMitad(getEjercitoActual(), coordenada);
 	}
 
 	private void setSiguienteEjercito() {
-		if (++idEjercitoActual == ejercitos.size()) {
-			idEjercitoActual = 0;
+		ejercitos.offer(ejercitos.poll());
+		if (ejercitos.peek().equals(primerEjercito)) {
 			localizarEstado = false;
 		}
-		;
 	}
 
-	public LinkedList<Ejercito> getEjercitos() {
-		return ejercitos;
+	public Ejercito getEjercitoActual() {
+		return ejercitos.peek();
 	}
 
-	public int getIdEjercitoActual() {
-		return idEjercitoActual;
+	public void alistarSoldadoBatallonActual(Soldado soldado) {
+		// Demeter
+		getEjercitoActual().getBatallonActual().alistarSoldado(soldado);
+	}
+	public Batallon getBatallonActual() {
+		return getEjercitoActual().getBatallonActual();
+	}
+
+	public int getAncho() {
+		return this.dimension.getAncho();
+	}
+
+	public int getAlto() {
+		return this.dimension.getAlto();
+	}
+
+	public Casilla getCasilla(Coordenada coordenada) {
+		Casilla casilla = tablero.getCasilla(coordenada);
+		if(casilla==null) {
+			return new Blanca();
+		}
+		return casilla;
 	}
 
 }

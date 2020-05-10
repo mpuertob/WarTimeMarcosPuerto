@@ -1,27 +1,30 @@
 package vista.info;
 
+import control.Juego;
 import modelo.Coordenada;
-import modelo.Dimension;
 import modelo.Tablero;
 import vista.Conversores.Generador;
 
 public class TableroUIInfo {
 
-	private Tablero tablero;
+	private Juego juego;
 
-	public TableroUIInfo(Tablero tablero) {
+	
+	
+	public TableroUIInfo(Juego juego) {
 		super();
-		this.tablero = tablero;
+		this.juego = juego;
 	}
 
-	public FichaInfo[][] getFichasInfo() {
-		Dimension dimension = this.tablero.getDimension();
-		FichaInfo[][] fichasFichaInfos = new FichaInfo[dimension.getAncho()][dimension.getAlto()];
-		for (int i = 0; i < fichasFichaInfos.length; i++) {
-			for (int j = 0; j < fichasFichaInfos[i].length; j++) {
-				fichasFichaInfos[i][j] = Generador.getFichaInfo(tablero, new Coordenada(i, j));
+
+	public FichaInfo[][] getFichasInfo(){
+		FichaInfo[][] fichasInfo=new FichaInfo[juego.getAlto()][juego.getAncho()];
+		for (int i = 0; i < fichasInfo.length; i++) {
+			for (int j = 0; j < fichasInfo[i].length; j++) {
+				fichasInfo[i][j]=Generador.getFichaInfo(juego, new Coordenada(i, j));
 			}
 		}
-		return fichasFichaInfos;
+		return fichasInfo;
 	}
+
 }

@@ -14,8 +14,5 @@ public class EspecialidadSoldadoInfo {
 		return especialidad;
 	}
 	
-	@Override
-	public String toString() {
-		return especialidad.name();
-	}
+	
 }

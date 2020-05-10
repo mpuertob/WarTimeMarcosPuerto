@@ -15,85 +15,60 @@ import modelo.Coordenada;
 import modelo.Dimension;
 import modelo.Ejercito;
 import utiles.Utiles;
+import vista.Advertencia;
 import vista.MercadoSoldadoDialog;
-import vista.UI;
+import vista.UserInterface;
 import vista.Conversores.Generador;
 
-public class ParaUI extends UI {
+public class ParaUI extends UserInterface {
+	private ComenzarController comenzarController;
+	private int ancho = 12, alto = 6;
 
-	private Controller control;
-	private boolean colocar = false;
 	MouseAdapter mouseAdapter = new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			super.mouseClicked(e);
 			JPanel panel = (JPanel) e.getSource();
-			if (colocar) {
-
-				Coordenada coordenada = Utiles.getCoordenada(panel.getName());
-				if (!control.localizar(coordenada)) {
-					System.out.println("algo va mal");
-				} else {
-					colocar = false;
-					getBordeArmada()
-							.update(Generador.getEjercitoInfo(getEjercitos().get(getJuego().getIdEjercitoActual())));
-					getTableroUI().actualizarTablero(Generador.getTableroUIInfo(getJuego()));
-					getBtnPoblar().setEnabled(true);
-					getBtnLocate().setEnabled(false);
-				}
-
+			panel.setBackground(Color.YELLOW);
+			Coordenada coordenada = Utiles.getCoordenada(panel.getName());
+			if (!comenzarController.localizar(coordenada)) {
+				new Advertencia(comenzarController.getError());
+			}
+			getTableroUI().actualizarTablero(Generador.getTableroUIInfo(comenzarController.getJuego()));
+			if (comenzarController.isLocalizarEstado()) {
+				getBordeArmada().getBtnPoblar().setEnabled(true);
+				getBordeArmada().update(Generador.getEjercitoInfo(comenzarController.getEjercitoActual()));
+			} else {
+				getBordeArmada().setVisible(false);
 			}
 		}
 	};
 
 	public ParaUI() {
 		super();
-		Dimension dimension = new Dimension(6, 12);
-		Juego juego = new Juego(dimension);
-		control = new Controller(juego);
+		comenzarController = new ComenzarController(ancho,alto);
+		crearTablero(comenzarController);
 		getTableroUI().setMouseAdapter(mouseAdapter);
-		getTableroUI().actualizarTablero(Generador.getTableroUIInfo(juego));
-		
-		getBordeArmada().cargarEjercito(Generador.getEjercitoInfo(juego.getEjercitos().get(juego.getIdEjercitoActual())));
+		getTableroUI().actualizarTablero(Generador.getTableroUIInfo(comenzarController.getJuego()));
+		getBordeArmada().cargarEjercito(Generador.getEjercitoInfo(comenzarController.getEjercitoActual()));
 		getBtnPoblar().addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mercadoSoldado = new MercadoSoldadoDialog(
-						Generador.getMercadoSoldadoInfo(getBatallonActual()));
+				MercadoSoldadoDialog mercadoSoldado = new MercadoSoldadoDialog(
+						Generador.getMercadoSoldadoInfo(comenzarController.getBatallonActual()));
 				mercadoSoldado.setVisible(true);
 				mercadoSoldado.getBtnOk().addActionListener(new ActionListener() {
-
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if (mercadoSoldado.compruebaMax()) {
-							control.poblarBatallon(mercadoSoldado.getListaEjercito());
-							getBtnPoblar().setEnabled(false);
-							getBtnLocate().setEnabled(true);
-							mercadoSoldado.dispose();
+							comenzarController.poblarBatallon(mercadoSoldado.getListaEspecificacion());
+							getBordeArmada().getBtnPoblar().setEnabled(false);
 						}
+						mercadoSoldado.dispose();
 					}
 				});
 			}
 		});
-			getBtnLocate().addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					colocar=true;
-				}
-			});
 	}
 
-	public Juego getJuego() {
-		return control.getJuego();
-	}
-
-	public LinkedList<Ejercito> getEjercitos() {
-		return control.getEjercitos();
-	}
-	public Batallon getBatallonActual() {
-		Juego juego = control.getJuego();
-		return juego.getEjercitos().get(juego.getIdEjercitoActual()).getBatallonActual();
-	}
 }

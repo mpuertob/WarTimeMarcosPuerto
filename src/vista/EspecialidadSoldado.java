@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,6 +16,7 @@ public class EspecialidadSoldado extends JPanel{
 	private JLabel lblEspecialidad;
 	private JTextField txtCantidad;
 	private FocusAdapter focusAdapter;
+	private JLabel label;
 
 	public JLabel getLblEspecialidad() {
 		return lblEspecialidad;
@@ -27,29 +29,32 @@ public class EspecialidadSoldado extends JPanel{
 	/**
 	 * Create the panel.
 	 */
-	public EspecialidadSoldado(EspecialidadSoldadoInfo especialidad, FocusAdapter focusAdapter) {
-		this.focusAdapter = focusAdapter;
+	public EspecialidadSoldado(EspecialidadSoldadoInfo especialidad,FocusAdapter focusAdapter) {
+		this.focusAdapter=focusAdapter;
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-
-		JLabel lblNewLabel = new JLabel("Especialidad     :");
+		
+		JLabel lblNewLabel = new JLabel("Especialidad :");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		add(lblNewLabel);
-
-		lblEspecialidad = new JLabel(especialidad.toString());
+		
+		lblEspecialidad = new JLabel(especialidad.getEspecialidad().toString());
+		lblEspecialidad.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		add(lblEspecialidad);
-
-		JLabel lblCantidadc = new JLabel("               Cantidad         :");
-		add(lblCantidadc);
-
-		txtCantidad = new JTextField("0");
-		// pasandole el listener del container
+		
+		txtCantidad = new JTextField("5");
+		txtCantidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		//pasandole el listener del container
 		txtCantidad.addFocusListener(this.focusAdapter);
-		// cuidado con poner dos listener
+		//cuidado con poner dos listener
 		txtCantidad.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				txtCantidad.setText("");
 			}
 		});
+		
+		label = new JLabel("   ");
+		add(label);
 		add(txtCantidad);
 		txtCantidad.setColumns(10);
 

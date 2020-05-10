@@ -61,7 +61,7 @@ public class BordeArmada extends JPanel {
 		lblCaballeria = new JLabel(String.valueOf(ejercitoInfo.getCaballeria()));
 		lblCaballeria.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCaballeria.setFont(new Font("Tahoma", Font.PLAIN, 16));
-
+		
 		add(lblCaballeria, "cell 1 7,growx");
 		JLabel lblNewLabel_4 = new JLabel("Arqueria:");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -125,14 +125,6 @@ public class BordeArmada extends JPanel {
 
 	public JButton getBtnLocate() {
 		return btnLocate;
-	}
-
-	public JLabel getLblCurrentBattalion() {
-		return lblCurrentBattalion;
-	}
-
-	public JLabel getLblCurrentBattalionId() {
-		return lblCurrentBattalionId;
 	}
 
 }

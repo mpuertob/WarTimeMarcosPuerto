@@ -3,6 +3,9 @@ package modelo;
 import java.awt.Color;
 import java.util.LinkedList;
 
+import vista.info.FichaBatallonInfo;
+import vista.info.FichaInfo;
+
 public class Batallon implements Casilla {
 	private int id;
 	private final int maximoSoldados = 10;
@@ -94,5 +97,22 @@ public class Batallon implements Casilla {
 
 	public Soldado getSoldado(int posicion) {
 		return this.getSoldados().get(posicion);
+	}
+
+	@Override
+	public FichaInfo getInfo(Ejercito ejercito) {
+		String rutaImagen = this.getSoldados().get(0).getEspecialidad().getRutaImagen();
+		int army = -1;
+		int idBatallon = this.getAtaqueTotal();
+		int experiencia = this.getExperienciaTotal();
+		int ataque = this.getAtaqueTotal();
+		int defensa = this.getDefensaTotal();
+		int stamina = this.getStaminaTotal();
+		int unidades = this.getMaximoSoldados();
+		boolean heroe = false;
+		Color colorEnemigo = this.getColorAtacante();
+		Color colorArmy = this.getColorArmy();
+		return new FichaBatallonInfo(rutaImagen, army, idBatallon, experiencia, ataque, defensa, stamina, unidades,
+				heroe, colorEnemigo, colorArmy);
 	}
 }

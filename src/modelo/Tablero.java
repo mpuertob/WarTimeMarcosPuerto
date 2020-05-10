@@ -32,6 +32,13 @@ public class Tablero {
 		return response;
 	}
 
+	public boolean isEnSuMitad(Ejercito ejercito, Coordenada coordenada) {
+		int y = coordenada.getY();
+		int mitad = getAncho() / 2;
+		int positionRelativa = y - (mitad * ejercito.getId());
+		return positionRelativa >= 0 && positionRelativa < mitad + ejercito.getId();
+	}
+
 	public Dimension getDimension() {
 		return dimension;
 	}
