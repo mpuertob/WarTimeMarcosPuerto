@@ -101,7 +101,7 @@ public class Batallon implements Casilla {
 
 	@Override
 	public FichaInfo getInfo(Ejercito ejercito) {
-		String rutaImagen = this.getSoldados().get(0).getEspecialidad().getRutaImagen();
+		String rutaImagen = ejercito.getIcon();
 		int army = -1;
 		int idBatallon = this.getAtaqueTotal();
 		int experiencia = this.getExperienciaTotal();

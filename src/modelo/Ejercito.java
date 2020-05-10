@@ -82,12 +82,15 @@ public class Ejercito {
 	}
 	
 	public String getIcon() {
-		// TODO Auto-generated method stub
+		
+		/*Lo mio que aquí no funciona
+		 * Soldado soldado = this.primerBatallon.getSoldado(1);
+		Especialidad especialidad = soldado.getEspecialidad();
+		String rutaImagen = especialidad.getRutaImagen();*/
 		return " ";
 	}
 
 	public Color getColor() {
-		// TODO Auto-generated method stub
 		return Color.black;
 	}
 
