@@ -27,23 +27,23 @@ public class EspecialidadSoldado extends JPanel{
 	/**
 	 * Create the panel.
 	 */
-	public EspecialidadSoldado(EspecialidadSoldadoInfo especialidad,FocusAdapter focusAdapter) {
-		this.focusAdapter=focusAdapter;
+	public EspecialidadSoldado(EspecialidadSoldadoInfo especialidad, FocusAdapter focusAdapter) {
+		this.focusAdapter = focusAdapter;
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		
+
 		JLabel lblNewLabel = new JLabel("Especialidad     :");
 		add(lblNewLabel);
-		
+
 		lblEspecialidad = new JLabel(especialidad.toString());
 		add(lblEspecialidad);
-		
+
 		JLabel lblCantidadc = new JLabel("               Cantidad         :");
 		add(lblCantidadc);
-		
+
 		txtCantidad = new JTextField("0");
-		//pasandole el listener del container
+		// pasandole el listener del container
 		txtCantidad.addFocusListener(this.focusAdapter);
-		//cuidado con poner dos listener
+		// cuidado con poner dos listener
 		txtCantidad.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

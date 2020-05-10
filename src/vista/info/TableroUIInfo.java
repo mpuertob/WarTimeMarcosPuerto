@@ -1,10 +1,8 @@
 package vista.info;
 
-import javax.swing.JPanel;
-
 import modelo.Coordenada;
+import modelo.Dimension;
 import modelo.Tablero;
-import vista.FichaBlanca;
 import vista.Conversores.Generador;
 
 public class TableroUIInfo {
@@ -16,15 +14,14 @@ public class TableroUIInfo {
 		this.tablero = tablero;
 	}
 
-	public void getFichas(JPanel fichas[][]) {
-		// Por que uso un array matriz para este tablero?
-		for (int i = 0; i < fichas.length; i++) {
-			for (int j = 0; j < fichas[i].length; j++) {
-				JPanel fichaInfo = Generador.getFicha(tablero, new Coordenada(i, j));
-				fichas[i][j] = fichaInfo;
-//						fichas[i][j].addMouseListener(mouseAdapter);
-
+	public FichaInfo[][] getFichasInfo() {
+		Dimension dimension = this.tablero.getDimension();
+		FichaInfo[][] fichasFichaInfos = new FichaInfo[dimension.getAncho()][dimension.getAlto()];
+		for (int i = 0; i < fichasFichaInfos.length; i++) {
+			for (int j = 0; j < fichasFichaInfos[i].length; j++) {
+				fichasFichaInfos[i][j] = Generador.getFichaInfo(tablero, new Coordenada(i, j));
 			}
 		}
+		return fichasFichaInfos;
 	}
 }
