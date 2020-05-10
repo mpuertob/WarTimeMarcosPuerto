@@ -44,7 +44,6 @@ public class Batallon implements Casilla {
 	public boolean alistarSoldado(Soldado soldado) {
 		assert soldado.getEspecialidad().getTipo().equals(tipo) : "epecialidad no compatible";
 		return soldados.add(soldado);
-
 	}
 
 	public LinkedList<Soldado> getSoldados() {
