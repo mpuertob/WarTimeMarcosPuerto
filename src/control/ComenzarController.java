@@ -1,6 +1,5 @@
 package control;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import modelo.Batallon;

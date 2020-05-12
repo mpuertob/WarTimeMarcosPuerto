@@ -21,6 +21,11 @@ public class Juego {
 	private boolean localizarEstado = true;
 	private Ejercito primerEjercito;
 	private Error errorActualError = null;
+	private int turno;
+
+	public int getTurno() {
+		return turno;
+	}
 
 	public boolean isLocalizarEstado() {
 		return localizarEstado;
@@ -39,6 +44,7 @@ public class Juego {
 		this.tablero.insertar(new Castillo(ejercitoUno), new Coordenada(3, getAncho()-2));
 		this.ejercitos.offer(ejercitoUno);
 		this.primerEjercito = ejercitos.peek();
+		turno=primerEjercito.getId();
 	}
 
 	public Tablero getTablero() {
@@ -76,6 +82,7 @@ public class Juego {
 
 	private void setSiguienteEjercito() {
 		ejercitos.offer(ejercitos.poll());
+		this.turno=ejercitos.peek().getId();
 		if (ejercitos.peek().equals(primerEjercito)) {
 			localizarEstado = false;
 		}
@@ -108,5 +115,7 @@ public class Juego {
 		}
 		return casilla;
 	}
-
+	public void siguienteTurno() {
+		setSiguienteEjercito();
+	}
 }
