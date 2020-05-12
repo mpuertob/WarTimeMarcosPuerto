@@ -19,6 +19,7 @@ import vista.Advertencia;
 import vista.MercadoSoldadoDialog;
 import vista.UserInterface;
 import vista.Conversores.Generador;
+import vista.info.TableroUIInfo;
 
 public class ParaUI extends UserInterface {
 	private ComenzarController comenzarController;
@@ -34,7 +35,7 @@ public class ParaUI extends UserInterface {
 			if (!comenzarController.localizar(coordenada)) {
 				new Advertencia(comenzarController.getError());
 			}
-			getTableroUI().actualizarTablero(Generador.getTableroUIInfo(comenzarController.getJuego()));
+			getTableroUI().actualizarTablero(getTableroUIInfo(comenzarController.getJuego()));
 			if (comenzarController.isLocalizarEstado()) {
 				getBordeArmada().getBtnPoblar().setEnabled(true);
 				getBordeArmada().update(Generador.getEjercitoInfo(comenzarController.getEjercitoActual()));
@@ -49,7 +50,7 @@ public class ParaUI extends UserInterface {
 		comenzarController = new ComenzarController(ancho,alto);
 		crearTablero(comenzarController);
 		getTableroUI().setMouseAdapter(mouseAdapter);
-		getTableroUI().actualizarTablero(Generador.getTableroUIInfo(comenzarController.getJuego()));
+		getTableroUI().actualizarTablero(getTableroUIInfo(comenzarController.getJuego()));
 		getBordeArmada().cargarEjercito(Generador.getEjercitoInfo(comenzarController.getEjercitoActual()));
 		getBtnPoblar().addActionListener(new ActionListener() {
 			@Override
@@ -70,5 +71,7 @@ public class ParaUI extends UserInterface {
 			}
 		});
 	}
-
+	public TableroUIInfo getTableroUIInfo(Juego juego) {
+		return new TableroUIInfo(juego);
+	}
 }
