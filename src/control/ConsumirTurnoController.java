@@ -1,32 +1,19 @@
-package pruebasui;
+package control;
 
 import javax.swing.JPanel;
 
-import control.Juego;
 import modelo.Casilla;
 import modelo.Coordenada;
 import modelo.Tablero;
 import utiles.Utiles;
 import vista.FichaBatallon;
-import vista.FichaCastillo;
 
-public class ConsumirTurnoControllerPrueba {
+public class ConsumirTurnoController {
 	private Juego juego;
 	private JPanel panel;
 
-	public ConsumirTurnoControllerPrueba(Juego juego) {
-		super();
+	public ConsumirTurnoController(Juego juego) {
 		this.juego = juego;
-		colocarBatallones();
-	}
-
-	private void colocarBatallones() {
-		int posicionesX[] = { 1, 2, 3, 1, 3, 4 };
-		int posicionesY[] = { 5, 4, 5, 6, 6, 7 };
-		for (int i = 0; i < posicionesY.length; i++) {
-			juego.localizarBatallon(new Coordenada(posicionesX[i], posicionesY[i]));
-		}
-
 	}
 
 	public void moverBatallon(JPanel panelBatallon, JPanel destino) {
@@ -57,8 +44,5 @@ public class ConsumirTurnoControllerPrueba {
 
 	public Juego getJuego() {
 		return juego;
-	}
-	public Tablero getTablero() {
-		return juego.getTablero();
 	}
 }
