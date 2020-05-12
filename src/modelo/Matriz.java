@@ -43,4 +43,9 @@ public class Matriz<K, E> {
 		return getElement(k) != null;
 	}
 
+	public boolean borrar(E casilla) {
+		E remove=elements.remove(reverse.remove(casilla));
+		return remove!=null;
+	}
+
 }

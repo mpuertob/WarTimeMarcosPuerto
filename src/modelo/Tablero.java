@@ -42,5 +42,7 @@ public class Tablero {
 	public Dimension getDimension() {
 		return dimension;
 	}
-
+	public boolean borrar(Casilla casilla) {
+		return casillas.borrar(casilla);
+	}
 }
