@@ -13,6 +13,7 @@ import modelo.Dimension;
 import utiles.Utiles;
 import vista.Advertencia;
 import vista.Conversores.Generador;
+import vista.info.TableroUIInfo;
 
 public class ParaUIPruebaTablero extends TableroUIPrueba {
 
@@ -27,7 +28,7 @@ public class ParaUIPruebaTablero extends TableroUIPrueba {
 			if(!localizadorController.localizar(coordenada)) {
 				new Advertencia(localizadorController.getError());
 			}
-			getTableroUI().actualizarTablero(Generador.getTableroUIInfo(localizadorController.getJuego()));
+			getTableroUI().actualizarTablero(getTableroUIInfo(localizadorController.getJuego()));
 		}
 	};
 
@@ -37,7 +38,7 @@ public class ParaUIPruebaTablero extends TableroUIPrueba {
 		Dimension dimension = new Dimension(6,12);
 		Juego juego=new Juego(dimension);
 		localizadorController=new LocalizadorController(juego);
-		getTableroUI().actualizarTablero(Generador.getTableroUIInfo(juego));
+		getTableroUI().actualizarTablero(getTableroUIInfo(juego));
 	}
 
 	/**
@@ -55,5 +56,7 @@ public class ParaUIPruebaTablero extends TableroUIPrueba {
 			}
 		});
 	}
-
+	public TableroUIInfo getTableroUIInfo(Juego juego) {
+		return new TableroUIInfo(juego);
+	}
 }
