@@ -43,6 +43,9 @@ public class ConsumirTurnoController {
 		}
 	}
 
+	public void confrontarBatallon() {
+	}
+
 	private void moverYpasarTurno(Tablero tablero, Casilla casilla, Coordenada coordenadaInsertar) {
 		tablero.borrar(casilla);
 		tablero.insertar(casilla, coordenadaInsertar);

@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 
 import vista.FichaCastillo;
 
-public class FichaCastilloInfo implements FichaInfo{
+public class FichaCastilloInfo implements Info {
 	private int idEjercito;
 
 	public FichaCastilloInfo(int idEjercito) {
@@ -14,11 +14,6 @@ public class FichaCastilloInfo implements FichaInfo{
 
 	public int getIdEjercito() {
 		return idEjercito;
-	}
-
-	@Override
-	public JPanel getPanel() {
-		return  new FichaCastillo(this);
 	}
 
 }

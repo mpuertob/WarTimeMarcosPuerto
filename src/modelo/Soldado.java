@@ -2,8 +2,8 @@ package modelo;
 
 public class Soldado {
 	private Especialidad especialidad;
-	// Estos valores los he puesto por defecto por ponerle algo
-	private int stamina = 100;
+	private final int staminaMaxima = 100;
+	private int stamina = staminaMaxima;
 	private int defensa = 1;
 	private int experiencia = 1;
 	private int ataque = 1;
@@ -15,6 +15,14 @@ public class Soldado {
 
 	public Especialidad getEspecialidad() {
 		return especialidad;
+	}
+
+	public void atacar() {
+
+	}
+
+	public void defender() {
+
 	}
 
 	public int getStamina() {

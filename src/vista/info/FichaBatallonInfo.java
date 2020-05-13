@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 import vista.FichaBatallon;
 
-public class FichaBatallonInfo implements FichaInfo {
+public class FichaBatallonInfo {
 	private String icon;
 	private int army;
 	private int battalion;
@@ -85,11 +85,6 @@ public class FichaBatallonInfo implements FichaInfo {
 
 	public void setColorEnemy(Color colorEnemy) {
 		this.colorEnemy = colorEnemy;
-	}
-
-	@Override
-	public JPanel getPanel() {
-		return new FichaBatallon(this);
 	}
 
 }
