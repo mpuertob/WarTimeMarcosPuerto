@@ -44,6 +44,8 @@ public class ConsumirTurnoController {
 	}
 
 	public void confrontarBatallon() {
+		// TODO falta hacerlo entero
+		System.out.println("Vamos a pelearnos");
 	}
 
 	private void moverYpasarTurno(Tablero tablero, Casilla casilla, Coordenada coordenadaInsertar) {
