@@ -10,6 +10,7 @@ import modelo.Tablero;
 import modelo.Tipo;
 import utiles.Utiles;
 import vista.FichaBatallon;
+import vista.FichaCastillo;
 
 public class ConsumirTurnoController {
 	private Juego juego;
@@ -32,7 +33,7 @@ public class ConsumirTurnoController {
 			// Obtenemos la casilla a donde quiero mover
 			Coordenada coordenadaInsertar = Utiles.getCoordenada(destino.getName());
 			Casilla casillaDos = tablero.getCasilla(coordenadaInsertar);
-			boolean isCastillo = casilla instanceof FichaBatallon;
+			boolean isCastillo = casilla instanceof FichaCastillo;
 			boolean coordenadaCorrecta = validarCoordenada(coordenada, coordenadaInsertar, numeroCasillas);
 			boolean isEnSuMitad = tablero.isEnSuMitad(ejercitoActual, coordenadaInsertar);
 			boolean cumpleRequisitos = casillaDos == null && !isCastillo && coordenadaCorrecta && isEnSuMitad;
