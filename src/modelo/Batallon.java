@@ -3,6 +3,7 @@ package modelo;
 import java.awt.Color;
 import java.util.LinkedList;
 
+import vista.info.FichaBatallonFactory;
 import vista.info.FichaBatallonInfo;
 import vista.info.FichaInfo;
 
@@ -111,7 +112,7 @@ public class Batallon implements Casilla {
 		boolean heroe = false;
 		Color colorEnemigo = this.getColorAtacante();
 		Color colorArmy = this.getColorArmy();
-		return new FichaBatallonInfo(rutaImagen, army, idBatallon, experiencia, ataque, defensa, stamina, unidades,
-				heroe, colorEnemigo, colorArmy);
+		return new FichaBatallonFactory(new FichaBatallonInfo(rutaImagen, army, idBatallon, experiencia, ataque,
+				defensa, stamina, unidades, heroe, colorEnemigo, colorArmy));
 	}
 }
