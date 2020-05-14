@@ -27,22 +27,24 @@ public class ParaUI extends UserInterface {
 		public void mouseClicked(MouseEvent e) {
 			super.mouseClicked(e);
 			JPanel panel = (JPanel) e.getSource();
-			panel.setBackground(Color.YELLOW);
 			Coordenada coordenada = Utiles.getCoordenada(panel.getName());
 			if (!comenzarController.localizar(coordenada)) {
-				//new Advertencia(comenzarController.getError());
+				// new Advertencia(comenzarController.getError());
 			}
 			getTableroUI().actualizarTablero(getTableroUIInfo(comenzarController.getJuego()));
 			if (comenzarController.isLocalizarEstado()) {
 				getBordeArmada().getBtnPoblar().setEnabled(true);
 				getBordeArmada().update(Generador.getEjercitoInfo(comenzarController.getEjercitoActual()));
 			} else {
-				
+
 				Casilla casilla = comenzarController.getTablero().getCasilla(Utiles.getCoordenada(panel.getName()));
-				if (casilla!=null) {
+				if (casilla != null) {
 					consumirTurnoController.setPanel(panel);
-				}else {
-					consumirTurnoController.moverBatallon(consumirTurnoController.getPanel(), panel);
+				} else {
+					JPanel panelGuardado = consumirTurnoController.getPanel();
+					Coordenada coordenadaOrigen = Utiles.getCoordenada(panelGuardado.getName());
+					Coordenada coordenadaDestino = Utiles.getCoordenada(panel.getName());
+					consumirTurnoController.moverBatallon(coordenadaOrigen, coordenadaDestino);
 					getTableroUI().actualizarTablero(getTableroUIInfo(consumirTurnoController.getJuego()));
 				}
 				getBordeArmada().setVisible(false);
@@ -52,7 +54,7 @@ public class ParaUI extends UserInterface {
 
 	public ParaUI() {
 		super();
-		comenzarController = new ComenzarController(ancho,alto);
+		comenzarController = new ComenzarController(ancho, alto);
 		Juego juego = comenzarController.getJuego();
 		consumirTurnoController = new ConsumirTurnoController(juego);
 		crearTablero(comenzarController);
@@ -78,6 +80,7 @@ public class ParaUI extends UserInterface {
 			}
 		});
 	}
+
 	public TableroUIInfo getTableroUIInfo(Juego juego) {
 		return new TableroUIInfo(juego);
 	}

@@ -20,26 +20,26 @@ public class ConsumirTurnoController {
 		this.juego = juego;
 	}
 
-	public void moverBatallon(JPanel panelBatallon, JPanel destino) {
+	public void moverBatallon(Coordenada coordenadaOrigen, Coordenada coordenadaDestino) {
 		// Obtenemos la casilla que quiero mover
 		Tablero tablero = juego.getTablero();
-		Coordenada coordenada = Utiles.getCoordenada(panelBatallon.getName());
-		Casilla casilla = tablero.getCasilla(coordenada);
-		if (casilla != null) {
+		Casilla casilla = tablero.getCasilla(coordenadaOrigen);
+		Casilla casillaDos = tablero.getCasilla(coordenadaDestino);
+		if (casillaDos == null) {
+			//Si la casilla esta vacia mueve, sino confronta
 			Ejercito ejercitoActual = juego.getEjercitoActual();
 			Batallon batallon = (Batallon) casilla;
 			Tipo tipoBatallon = batallon.getTipo();
 			int numeroCasillas = tipoBatallon.getNumeroCasillas();
-			// Obtenemos la casilla a donde quiero mover
-			Coordenada coordenadaInsertar = Utiles.getCoordenada(destino.getName());
-			Casilla casillaDos = tablero.getCasilla(coordenadaInsertar);
 			boolean isCastillo = casilla instanceof FichaCastillo;
-			boolean coordenadaCorrecta = validarCoordenada(coordenada, coordenadaInsertar, numeroCasillas);
-			boolean isEnSuMitad = tablero.isEnSuMitad(ejercitoActual, coordenadaInsertar);
+			boolean coordenadaCorrecta = validarCoordenada(coordenadaOrigen, coordenadaDestino, numeroCasillas);
+			boolean isEnSuMitad = tablero.isEnSuMitad(ejercitoActual, coordenadaDestino);
 			boolean cumpleRequisitos = casillaDos == null && !isCastillo && coordenadaCorrecta && isEnSuMitad;
 			if (cumpleRequisitos) {
-				moverYpasarTurno(tablero, casilla, coordenadaInsertar);
+				moverYpasarTurno(tablero, casilla, coordenadaDestino);
 			}
+		} else if (casilla instanceof FichaBatallon && casillaDos instanceof FichaBatallon) {
+			confrontarBatallon();
 		}
 	}
 
