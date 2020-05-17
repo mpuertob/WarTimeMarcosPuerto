@@ -3,9 +3,13 @@ package pruebasui;
 import javax.swing.JPanel;
 
 import control.Juego;
+import modelo.Batallon;
 import modelo.Casilla;
 import modelo.Coordenada;
+import modelo.Ejercito;
+import modelo.Rango;
 import modelo.Tablero;
+import modelo.Tipo;
 import utiles.Utiles;
 import vista.FichaBatallon;
 import vista.FichaCastillo;
@@ -15,36 +19,79 @@ public class ConsumirTurnoControllerPrueba {
 	private JPanel panel;
 
 	public ConsumirTurnoControllerPrueba(Juego juego) {
-		super();
 		this.juego = juego;
-		colocarBatallones();
 	}
 
-	private void colocarBatallones() {
-		int posicionesX[] = { 1, 2, 3, 1, 3, 4 };
-		int posicionesY[] = { 5, 4, 5, 6, 6, 7 };
-		for (int i = 0; i < posicionesY.length; i++) {
-			juego.localizarBatallon(new Coordenada(posicionesX[i], posicionesY[i]));
-		}
-
-	}
-
-	public void moverBatallon(JPanel panelBatallon, JPanel destino) {
+	public void moverBatallon(Coordenada coordenadaOrigen, Coordenada coordenadaDestino) {
 		// Obtenemos la casilla que quiero mover
 		Tablero tablero = juego.getTablero();
-		Coordenada coordenada = Utiles.getCoordenada(panelBatallon.getName());
-		Casilla casilla = tablero.getCasilla(coordenada);
-
-		// Obtenemos la casilla a donde quiero mover
-		Coordenada coordenadaInsertar = Utiles.getCoordenada(destino.getName());
-		Casilla casillaDos = tablero.getCasilla(coordenadaInsertar);
-		boolean isCastillo = casilla instanceof FichaBatallon;
-		// Si la casilla a la que quiero mover está vacía
-		// y si la casilla que quiero mover no es un castillo
-		if (casillaDos == null && !isCastillo) {
-			tablero.borrar(casilla);
-			tablero.insertar(casilla, coordenadaInsertar);
+		Casilla casilla = tablero.getCasilla(coordenadaOrigen);
+		Casilla casillaDos = tablero.getCasilla(coordenadaDestino);
+		boolean isVacia = (casillaDos == null);
+		// Si la casilla esta vacia mueve, sino confronta
+		if (isVacia) {
+			Ejercito ejercitoActual = juego.getEjercitoActual();
+			Batallon batallon = (Batallon) casilla;
+			Tipo tipoBatallon = batallon.getTipo();
+			Rango rangoMovilidad = tipoBatallon.getMovilidad();
+			boolean isCastillo = casilla instanceof FichaCastillo;
+			boolean coordenadaCorrecta = validarCoordenada(coordenadaOrigen, coordenadaDestino, rangoMovilidad);
+			boolean isEnSuMitad = tablero.isEnSuMitad(ejercitoActual, coordenadaDestino);
+			boolean cumpleRequisitos = !isCastillo && coordenadaCorrecta && isEnSuMitad;
+			if (cumpleRequisitos) {
+				moverYpasarTurno(tablero, casilla, coordenadaDestino);
+			}
+		} else {
+			confrontarBatallon(coordenadaOrigen, coordenadaDestino);
 		}
+
+	}
+
+	public void confrontarBatallon(Coordenada coordenadaOrigen, Coordenada coordenadaDestino) {
+		Tablero tablero = juego.getTablero();
+		Casilla casilla = tablero.getCasilla(coordenadaOrigen);
+		Batallon batallon = (Batallon) casilla;
+		Tipo tipoBatallon = batallon.getTipo();
+		Rango rangoAtaque = tipoBatallon.getAtaque();
+		boolean isEnSuMitad = tablero.isEnSuMitad(juego.getEjercitoActual(), coordenadaDestino);
+		boolean coordenadaCorrecta = validarCoordenada(coordenadaOrigen, coordenadaDestino, rangoAtaque);
+		if (!isEnSuMitad && coordenadaCorrecta) {
+			System.out.println("Vamos a pelearnos, iniciamos la guerra");
+			getJuego().siguienteTurno();
+			this.panel = null;
+		}
+	}
+
+	private void moverYpasarTurno(Tablero tablero, Casilla casilla, Coordenada coordenadaInsertar) {
+		tablero.borrar(casilla);
+		tablero.insertar(casilla, coordenadaInsertar);
+		getJuego().siguienteTurno();
+		this.panel = null;
+	}
+
+	private boolean validarCoordenada(Coordenada origen, Coordenada destino, Rango rango) {
+		int xOrigen = origen.getX();
+		int yOrigen = origen.getY();
+		boolean respuesta = false;
+		int rangoMaximo = rango.getMaximo();
+		for (int i = xOrigen - rangoMaximo; i <= xOrigen + rangoMaximo; i++) {
+			for (int j = yOrigen - rangoMaximo; j <= yOrigen + rangoMaximo; j++) {
+				Coordenada nuevaCoordenada = new Coordenada(i, j);
+				if (nuevaCoordenada.equals(destino) && calculaDistancia(origen, destino) == rangoMaximo) {
+					respuesta = true;
+				}
+			}
+		}
+		return respuesta;
+	}
+
+	public static int calculaDistancia(Coordenada origen, Coordenada destino) {
+		int x = origen.getX();
+		int y = origen.getY();
+		int primerCateto = x - destino.getX();
+		int segundoCateto = y - destino.getY();
+		int hipotenusa = (int) Math.sqrt(primerCateto * primerCateto + segundoCateto * segundoCateto);
+		return hipotenusa;
 	}
 
 	public JPanel getPanel() {
@@ -57,8 +104,5 @@ public class ConsumirTurnoControllerPrueba {
 
 	public Juego getJuego() {
 		return juego;
-	}
-	public Tablero getTablero() {
-		return juego.getTablero();
 	}
 }

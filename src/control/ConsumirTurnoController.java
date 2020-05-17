@@ -34,30 +34,28 @@ public class ConsumirTurnoController {
 			Tipo tipoBatallon = batallon.getTipo();
 			Rango rangoMovilidad = tipoBatallon.getMovilidad();
 			boolean isCastillo = casilla instanceof FichaCastillo;
-			boolean coordenadaCorrecta = validarCoordenadaMovilidad(coordenadaOrigen, coordenadaDestino,
-					rangoMovilidad);
+			boolean coordenadaCorrecta = validarCoordenada(coordenadaOrigen, coordenadaDestino, rangoMovilidad);
 			boolean isEnSuMitad = tablero.isEnSuMitad(ejercitoActual, coordenadaDestino);
 			boolean cumpleRequisitos = !isCastillo && coordenadaCorrecta && isEnSuMitad;
 			if (cumpleRequisitos) {
 				moverYpasarTurno(tablero, casilla, coordenadaDestino);
 			}
 		} else {
-			confrontarBatallon(coordenadaOrigen,coordenadaDestino);
+			confrontarBatallon(coordenadaOrigen, coordenadaDestino);
 		}
 
 	}
 
-	public void confrontarBatallon(Coordenada coordenadaOrigen,Coordenada coordenadaDestino) {
+	public void confrontarBatallon(Coordenada coordenadaOrigen, Coordenada coordenadaDestino) {
 		Tablero tablero = juego.getTablero();
 		Casilla casilla = tablero.getCasilla(coordenadaOrigen);
 		Batallon batallon = (Batallon) casilla;
 		Tipo tipoBatallon = batallon.getTipo();
 		Rango rangoAtaque = tipoBatallon.getAtaque();
 		boolean isEnSuMitad = tablero.isEnSuMitad(juego.getEjercitoActual(), coordenadaDestino);
-		boolean coordenadaCorrecta = validarCoordenadaMovilidad(coordenadaOrigen, coordenadaDestino,
-				rangoAtaque);
-		if (!isEnSuMitad&&coordenadaCorrecta) {
-			System.out.println("Vamos a pelearnos");
+		boolean coordenadaCorrecta = validarCoordenada(coordenadaOrigen, coordenadaDestino, rangoAtaque);
+		if (!isEnSuMitad && coordenadaCorrecta) {
+			System.out.println("Vamos a pelearnos, iniciamos la guerra");
 			getJuego().siguienteTurno();
 			this.panel = null;
 		}
@@ -70,21 +68,29 @@ public class ConsumirTurnoController {
 		this.panel = null;
 	}
 
-	private boolean validarCoordenadaMovilidad(Coordenada origen, Coordenada destino,
-			Rango rango) {
+	private boolean validarCoordenada(Coordenada origen, Coordenada destino, Rango rango) {
 		int xOrigen = origen.getX();
 		int yOrigen = origen.getY();
 		boolean respuesta = false;
-		//TODO falta para el arquero
-		for (int i = xOrigen - rango.getMaximo(); i <= xOrigen + rango.getMaximo(); i++) {
-			for (int j = yOrigen - rango.getMaximo(); j <= yOrigen + rango.getMaximo(); j++) {
+		int rangoMaximo = rango.getMaximo();
+		for (int i = xOrigen - rangoMaximo; i <= xOrigen + rangoMaximo; i++) {
+			for (int j = yOrigen - rangoMaximo; j <= yOrigen + rangoMaximo; j++) {
 				Coordenada nuevaCoordenada = new Coordenada(i, j);
-				if (nuevaCoordenada.equals(destino)) {
+				if (nuevaCoordenada.equals(destino) && calculaDistancia(origen, destino) == rangoMaximo) {
 					respuesta = true;
 				}
 			}
 		}
 		return respuesta;
+	}
+
+	public static int calculaDistancia(Coordenada origen, Coordenada destino) {
+		int xOrigen = origen.getX();
+		int yOrigen = origen.getY();
+		int xDestino = xOrigen - destino.getX();
+		int yDestino = yOrigen - destino.getY();
+		int distancia = (int) Math.sqrt(xDestino * xDestino + yDestino * yDestino);
+		return distancia;
 	}
 
 	public JPanel getPanel() {
