@@ -26,36 +26,43 @@ public class ConsumirTurnoController {
 		Tablero tablero = juego.getTablero();
 		Casilla casilla = tablero.getCasilla(coordenadaOrigen);
 		Casilla casillaDos = tablero.getCasilla(coordenadaDestino);
-		if (casillaDos == null) {
-			// Si la casilla esta vacia mueve, sino confronta
+		boolean isVacia = (casillaDos == null);
+		// Si la casilla esta vacia mueve, sino confronta
+		if (isVacia) {
 			Ejercito ejercitoActual = juego.getEjercitoActual();
 			Batallon batallon = (Batallon) casilla;
 			Tipo tipoBatallon = batallon.getTipo();
 			Rango rangoMovilidad = tipoBatallon.getMovilidad();
 			boolean isCastillo = casilla instanceof FichaCastillo;
-			boolean coordenadaCorrecta = validarCoordenadaMovilidad(coordenadaOrigen, coordenadaDestino, rangoMovilidad);
+			boolean coordenadaCorrecta = validarCoordenadaMovilidad(coordenadaOrigen, coordenadaDestino,
+					rangoMovilidad);
 			boolean isEnSuMitad = tablero.isEnSuMitad(ejercitoActual, coordenadaDestino);
-			boolean cumpleRequisitos = casillaDos == null && !isCastillo && coordenadaCorrecta && isEnSuMitad;
+			boolean cumpleRequisitos = !isCastillo && coordenadaCorrecta && isEnSuMitad;
 			if (cumpleRequisitos) {
 				moverYpasarTurno(tablero, casilla, coordenadaDestino);
 			}
-		} else if (casilla instanceof FichaBatallon && casillaDos instanceof FichaBatallon) {
+		} else {
 			confrontarBatallon();
 		}
+
 	}
 
 	public void confrontarBatallon() {
-		// TODO falta hacerlo entero
 		System.out.println("Vamos a pelearnos");
+		getJuego().siguienteTurno();
+		this.panel = null;
+		//TODO falta por hacer
 	}
 
 	private void moverYpasarTurno(Tablero tablero, Casilla casilla, Coordenada coordenadaInsertar) {
 		tablero.borrar(casilla);
 		tablero.insertar(casilla, coordenadaInsertar);
 		getJuego().siguienteTurno();
+		this.panel = null;
 	}
 
-	private boolean validarCoordenadaMovilidad(Coordenada coordenada, Coordenada coordenadaInsertar, Rango rangoMovilidad) {
+	private boolean validarCoordenadaMovilidad(Coordenada coordenada, Coordenada coordenadaInsertar,
+			Rango rangoMovilidad) {
 		int xOrigen = coordenada.getX();
 		int yOrigen = coordenada.getY();
 		boolean respuesta = false;

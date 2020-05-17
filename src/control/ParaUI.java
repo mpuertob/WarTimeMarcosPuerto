@@ -10,8 +10,10 @@ import javax.swing.JPanel;
 
 import modelo.Casilla;
 import modelo.Coordenada;
+import modelo.Tablero;
 import utiles.Utiles;
 import vista.Advertencia;
+import vista.FichaBatallon;
 import vista.MercadoSoldadoDialog;
 import vista.UserInterface;
 import vista.Conversores.Generador;
@@ -20,6 +22,7 @@ import vista.info.TableroUIInfo;
 public class ParaUI extends UserInterface {
 	private ComenzarController comenzarController;
 	private ConsumirTurnoController consumirTurnoController;
+	boolean sePuedeMover = false;
 	private int ancho = 12, alto = 6;
 
 	MouseAdapter mouseAdapter = new MouseAdapter() {
@@ -28,6 +31,9 @@ public class ParaUI extends UserInterface {
 			super.mouseClicked(e);
 			JPanel panel = (JPanel) e.getSource();
 			Coordenada coordenada = Utiles.getCoordenada(panel.getName());
+			if (sePuedeMover) {
+				moverBatallones(panel);
+			}
 			if (!comenzarController.localizar(coordenada)) {
 				// new Advertencia(comenzarController.getError());
 			}
@@ -36,18 +42,23 @@ public class ParaUI extends UserInterface {
 				getBordeArmada().getBtnPoblar().setEnabled(true);
 				getBordeArmada().update(Generador.getEjercitoInfo(comenzarController.getEjercitoActual()));
 			} else {
-
-				Casilla casilla = comenzarController.getTablero().getCasilla(Utiles.getCoordenada(panel.getName()));
-				if (casilla != null) {
-					consumirTurnoController.setPanel(panel);
-				} else {
-					JPanel panelGuardado = consumirTurnoController.getPanel();
-					Coordenada coordenadaOrigen = Utiles.getCoordenada(panelGuardado.getName());
-					Coordenada coordenadaDestino = Utiles.getCoordenada(panel.getName());
-					consumirTurnoController.moverBatallon(coordenadaOrigen, coordenadaDestino);
-					getTableroUI().actualizarTablero(getTableroUIInfo(consumirTurnoController.getJuego()));
-				}
 				getBordeArmada().setVisible(false);
+				sePuedeMover = true;
+			}
+
+		}
+
+		private void moverBatallones(JPanel panel) {
+			Casilla casilla = comenzarController.getTablero().getCasilla(Utiles.getCoordenada(panel.getName()));
+			JPanel panelGuardado = consumirTurnoController.getPanel();
+			boolean isVacio = panelGuardado == null;
+			if ((casilla != null) && isVacio) {
+				consumirTurnoController.setPanel(panel);
+			} else if (!isVacio) {
+				Coordenada coordenadaOrigen = Utiles.getCoordenada(panelGuardado.getName());
+				Coordenada coordenadaDestino = Utiles.getCoordenada(panel.getName());
+				consumirTurnoController.moverBatallon(coordenadaOrigen, coordenadaDestino);
+				getTableroUI().actualizarTablero(getTableroUIInfo(consumirTurnoController.getJuego()));
 			}
 		}
 	};
