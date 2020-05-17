@@ -14,7 +14,7 @@ import modelo.Tipo;
 import vista.EspecialidadSoldado;
 import vista.info.EjercitoInfo;
 import vista.info.EspecialidadSoldadoInfo;
-import vista.info.FichaInfo;
+import vista.info.FichaFactory;
 import vista.info.MercadoSoldadoInfo;
 import vista.info.TableroUIInfo;
 

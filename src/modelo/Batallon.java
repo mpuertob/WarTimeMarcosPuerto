@@ -3,9 +3,8 @@ package modelo;
 import java.awt.Color;
 import java.util.LinkedList;
 
-import vista.info.FichaBatallonFactory;
-import vista.info.FichaBatallonInfo;
-import vista.info.FichaInfo;
+import vista.info.BatallonFichaFactory;
+import vista.info.FichaFactory;
 
 public class Batallon implements Casilla {
 	private int id;
@@ -95,12 +94,40 @@ public class Batallon implements Casilla {
 		return defensaTotal;
 	}
 
-	public Soldado getSoldado(int posicion) {
-		return this.getSoldados().get(posicion);
+	@Override
+	public FichaFactory getFactory(Ejercito ejercito) {
+		return new BatallonFichaFactory(getId(), getCantidadSoldados(), ejercito);
 	}
 
-	@Override
-	public FichaInfo getInfo(Ejercito ejercito) {
+	public Soldado getSoldado() {
+		return soldados.pop();
+	}
+	// si curamos soldados, los que tengan stamina critica pero mayor que cero
+//	public Soldado getSoldado() {
+//		Soldado pop = soldados.pop();
+//		//usar la cola de soldados como una lista y preguntar (recorrer) si hay algun
+//		//elemento no critico
+//		while(pop.isCriticaStamina()) {
+//			soldados.offer(pop);
+//			pop=soldados.pop();
+//		}
+//		return pop;
+//	}
+
+	public void tratarSoldado(Soldado soldado) {
+		// TODO Auto-generated method stub
+		// nivel de stamina? critico o no
+		if (!soldado.isCriticaStamina()) {
+			soldados.offer(soldado);
+		}
+	}
+
+	public boolean haySoldados() {
+		return !soldados.isEmpty();
+	}
+
+	/*@Override
+	public FichaFactory getFactory(Ejercito ejercito) {
 		String rutaImagen = ejercito.getIcon();
 		int army = -1;
 		int idBatallon = this.getAtaqueTotal();
@@ -114,5 +141,5 @@ public class Batallon implements Casilla {
 		Color colorArmy = this.getColorArmy();
 		return new FichaBatallonFactory(new FichaBatallonInfo(rutaImagen, army, idBatallon, experiencia, ataque,
 				defensa, stamina, unidades, heroe, colorEnemigo, colorArmy));
-	}
+	}*/
 }

@@ -6,6 +6,7 @@ import modelo.Batallon;
 import modelo.Casilla;
 import modelo.Coordenada;
 import modelo.Ejercito;
+import modelo.Rango;
 import modelo.Tablero;
 import modelo.Tipo;
 import utiles.Utiles;
@@ -26,13 +27,13 @@ public class ConsumirTurnoController {
 		Casilla casilla = tablero.getCasilla(coordenadaOrigen);
 		Casilla casillaDos = tablero.getCasilla(coordenadaDestino);
 		if (casillaDos == null) {
-			//Si la casilla esta vacia mueve, sino confronta
+			// Si la casilla esta vacia mueve, sino confronta
 			Ejercito ejercitoActual = juego.getEjercitoActual();
 			Batallon batallon = (Batallon) casilla;
 			Tipo tipoBatallon = batallon.getTipo();
-			int numeroCasillas = tipoBatallon.getNumeroCasillas();
+			Rango rangoMovilidad = tipoBatallon.getMovilidad();
 			boolean isCastillo = casilla instanceof FichaCastillo;
-			boolean coordenadaCorrecta = validarCoordenada(coordenadaOrigen, coordenadaDestino, numeroCasillas);
+			boolean coordenadaCorrecta = validarCoordenadaMovilidad(coordenadaOrigen, coordenadaDestino, rangoMovilidad);
 			boolean isEnSuMitad = tablero.isEnSuMitad(ejercitoActual, coordenadaDestino);
 			boolean cumpleRequisitos = casillaDos == null && !isCastillo && coordenadaCorrecta && isEnSuMitad;
 			if (cumpleRequisitos) {
@@ -54,12 +55,12 @@ public class ConsumirTurnoController {
 		getJuego().siguienteTurno();
 	}
 
-	private boolean validarCoordenada(Coordenada coordenada, Coordenada coordenadaInsertar, int numeroCasillas) {
+	private boolean validarCoordenadaMovilidad(Coordenada coordenada, Coordenada coordenadaInsertar, Rango rangoMovilidad) {
 		int xOrigen = coordenada.getX();
 		int yOrigen = coordenada.getY();
 		boolean respuesta = false;
-		for (int i = xOrigen - numeroCasillas; i <= xOrigen + numeroCasillas; i++) {
-			for (int j = yOrigen - numeroCasillas; j <= yOrigen + numeroCasillas; j++) {
+		for (int i = xOrigen - rangoMovilidad.getMaximo(); i <= xOrigen + rangoMovilidad.getMaximo(); i++) {
+			for (int j = yOrigen - rangoMovilidad.getMaximo(); j <= yOrigen + rangoMovilidad.getMaximo(); j++) {
 				Coordenada nuevaCoordenada = new Coordenada(i, j);
 				if (nuevaCoordenada.equals(coordenadaInsertar)) {
 					respuesta = true;

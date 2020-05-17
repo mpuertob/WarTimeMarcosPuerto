@@ -2,7 +2,7 @@ package vista.info;
 
 import javax.swing.JPanel;
 
-public class FichaTrincheraInfo implements FichaInfo {
+public class FichaTrincheraInfo implements FichaFactory {
 
 	@Override
 	public JPanel getPanel() {
