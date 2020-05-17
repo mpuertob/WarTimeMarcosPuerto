@@ -42,16 +42,25 @@ public class ConsumirTurnoController {
 				moverYpasarTurno(tablero, casilla, coordenadaDestino);
 			}
 		} else {
-			confrontarBatallon();
+			confrontarBatallon(coordenadaOrigen,coordenadaDestino);
 		}
 
 	}
 
-	public void confrontarBatallon() {
-		System.out.println("Vamos a pelearnos");
-		getJuego().siguienteTurno();
-		this.panel = null;
-		//TODO falta por hacer
+	public void confrontarBatallon(Coordenada coordenadaOrigen,Coordenada coordenadaDestino) {
+		Tablero tablero = juego.getTablero();
+		Casilla casilla = tablero.getCasilla(coordenadaOrigen);
+		Batallon batallon = (Batallon) casilla;
+		Tipo tipoBatallon = batallon.getTipo();
+		Rango rangoAtaque = tipoBatallon.getAtaque();
+		boolean isEnSuMitad = tablero.isEnSuMitad(juego.getEjercitoActual(), coordenadaDestino);
+		boolean coordenadaCorrecta = validarCoordenadaMovilidad(coordenadaOrigen, coordenadaDestino,
+				rangoAtaque);
+		if (!isEnSuMitad&&coordenadaCorrecta) {
+			System.out.println("Vamos a pelearnos");
+			getJuego().siguienteTurno();
+			this.panel = null;
+		}
 	}
 
 	private void moverYpasarTurno(Tablero tablero, Casilla casilla, Coordenada coordenadaInsertar) {
@@ -61,15 +70,16 @@ public class ConsumirTurnoController {
 		this.panel = null;
 	}
 
-	private boolean validarCoordenadaMovilidad(Coordenada coordenada, Coordenada coordenadaInsertar,
-			Rango rangoMovilidad) {
-		int xOrigen = coordenada.getX();
-		int yOrigen = coordenada.getY();
+	private boolean validarCoordenadaMovilidad(Coordenada origen, Coordenada destino,
+			Rango rango) {
+		int xOrigen = origen.getX();
+		int yOrigen = origen.getY();
 		boolean respuesta = false;
-		for (int i = xOrigen - rangoMovilidad.getMaximo(); i <= xOrigen + rangoMovilidad.getMaximo(); i++) {
-			for (int j = yOrigen - rangoMovilidad.getMaximo(); j <= yOrigen + rangoMovilidad.getMaximo(); j++) {
+		//TODO falta para el arquero
+		for (int i = xOrigen - rango.getMaximo(); i <= xOrigen + rango.getMaximo(); i++) {
+			for (int j = yOrigen - rango.getMaximo(); j <= yOrigen + rango.getMaximo(); j++) {
 				Coordenada nuevaCoordenada = new Coordenada(i, j);
-				if (nuevaCoordenada.equals(coordenadaInsertar)) {
+				if (nuevaCoordenada.equals(destino)) {
 					respuesta = true;
 				}
 			}
